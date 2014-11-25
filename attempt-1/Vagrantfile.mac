@@ -21,6 +21,11 @@ Vagrant.configure('2') do |config|
     vagrant_host.vm.provision 'shell', inline: "sudo systemctl enable docker && sudo systemctl start docker"
     vagrant_host.vm.provision 'shell', inline: "sudo chown root:docker /var/run/docker.sock"
 
+    vagrant_host.vm.provision 'shell', inline: "sudo yum -y install {python,libffi,openssl}-devel"
+    vagrant_host.vm.provision 'shell', inline: "pip install --upgrade devassistant -I --user"
+    vagrant_host.vm.provision 'shell', inline: "da pkg install nodejs python docker"
+
+
   end
 
   config.vm.synced_folder '~/loc-projects', '/mnt/host-projects'
